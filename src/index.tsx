@@ -5,18 +5,13 @@ import './css/index.css'
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import { styled } from '@stitches/react'
-
-import RequestForm from './components/RequestForm'
-
-const PageBody = styled('div', {
-  padding: 12,
-})
+import PageLayout from 'components/PageLayout'
+import ViewController from 'components/ViewController'
 
 const App = () => (
-  <PageBody>
-    <RequestForm />
-  </PageBody>
+  <PageLayout>
+    <ViewController />
+  </PageLayout>
 )
 
 ReactDOM.render(
