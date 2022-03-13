@@ -37,7 +37,7 @@ The app can be used without a personal access token, in which case, you can view
 
 - [ ] include at least one Jest test
 
-- [ ] app is responsive; include at least one layout change at a breakpoint
+- [x] app is responsive; include at least one layout change at a breakpoint
 
 ## Tech
 

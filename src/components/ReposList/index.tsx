@@ -60,6 +60,47 @@ const Column = styled('div', {
   border: '1px solid $grey300',
   flex: '1 1 auto',
   minWidth: '50%',
+
+  '@iPadPortrait': {
+    flex: '1 0 auto',
+    width: '100%',
+  },
+
+  variants: {
+    hasRepoId: {
+      true: {
+        '@iPadPortrait': {
+          display: 'none',
+        },      
+      },
+    },
+  },
+})
+
+const BackButton = styled(Button, {
+  display: 'none',
+
+  variants: {
+    hasRepoId: {
+      true: {
+        '@iPadPortrait': {
+          display: 'block',
+        },      
+      },
+    },
+  },
+})
+
+const ClearButton = styled(Button, {
+  variants: {
+    hasRepoId: {
+      true: {
+        '@iPadPortrait': {
+          display: 'none',
+        },      
+      },
+    },
+  },
 })
 
 const ReposList = ({ repos, setRepos }: Props) => {
@@ -71,34 +112,58 @@ const ReposList = ({ repos, setRepos }: Props) => {
   const [selectedRepoId, setSelectedRepoId] = useState(-1)
   const [issues, setIssues] = useState<TransformedIssuesData>([])
 
+  const handleBack = () => {
+    setIssues([])
+    setSelectedRepoId(-1)
+  }
+
   const handleClear = () => {
     setIssues([])
     setRepos([])
+    setSelectedRepoId(-1)
   }
 
   const handleRepoOnClick = async (owner: string, repo: string, id: number) => {
+    // clear any previous selection
+    setIssues([])
+
     const response = await octokit.request('GET /repos/{owner}/{repo}/issues', {
       owner,
       repo,
     })
 
-    setSelectedRepoId(id)
+    if (response.data.length > 0) {
+      setSelectedRepoId(id)
 
-    // sort issues
-    const sortedIssues = compareSort(response.data, sequences, id)
-    console.log('sortedIssues', sortedIssues)
-    setIssues(sortedIssues)
+      // sort issues
+      const sortedIssues = compareSort(response.data, sequences, id)
+  
+      setIssues(sortedIssues)
+    }
   }
 
   return (
     <Container>
       <Header>
         <Owner>{repos[0].owner.login}</Owner>
-        <Button onClick={handleClear} type="button">Clear</Button>
+        <BackButton
+          hasRepoId={selectedRepoId !== -1}
+          onClick={handleBack}
+          type="button"
+        >
+          Back
+        </BackButton>
+        <ClearButton
+          hasRepoId={selectedRepoId !== -1}
+          onClick={handleClear}
+          type="button"
+        >
+          Clear
+        </ClearButton>
       </Header>
 
       <Main>
-        <Column>
+        <Column hasRepoId={selectedRepoId !== -1}>
           <ul>
             {repos.map((repo) => (
               <Repo

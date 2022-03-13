@@ -1,6 +1,10 @@
 import { createStitches } from '@stitches/react'
 
 export const { css, styled } = createStitches({
+  media: {
+    'iPadLandscape': '(max-width: 1024px)',
+    'iPadPortrait': '(max-width: 768px)',
+  },
   theme: {
     colors: {
       'black': '#000000',
