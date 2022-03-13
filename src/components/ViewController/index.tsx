@@ -1,32 +1,20 @@
-import { useEffect, useState } from 'react'
-import { Button, Form, Input, Label, Ul, Select } from 'design-system'
+import { useState } from 'react'
 
+import ReposList from 'components/ReposList'
 import RequestForm from 'components/RequestForm'
 
-import type {
-  OrgsOrgReposResponse,
-  UserReposResponse,
-  UsersUsernameReposResponse,
-} from 'components/RequestForm'
+import type { Data } from 'components/RequestForm'
 
 const ViewController = () => {
-  const [repos, setRepos] = useState<OrgsOrgReposResponse['data'] | UserReposResponse['data'] | UsersUsernameReposResponse['data']>([])
-
-  useEffect(() => {
-    console.log(repos)
-  }, [repos])
+  const [repos, setRepos] = useState<Data>([])
 
   return (
     <>
-      <RequestForm setRepos={setRepos} />
-
-      {repos.map((repo) => (
-        <Ul key={repo.id}>
-          <li>{repo.id}</li>
-          <li>{repo.name}</li>
-          <li>{repo.description}</li>
-        </Ul>
-      ))}
+      {repos.length === 0 ? (
+        <RequestForm setRepos={setRepos} />
+      ) : (
+        <ReposList repos={repos} setRepos={setRepos} />
+      )}
     </>
   )
 }

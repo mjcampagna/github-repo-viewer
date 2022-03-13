@@ -5,13 +5,10 @@ import './css/index.css'
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import PageLayout from 'components/PageLayout'
 import ViewController from 'components/ViewController'
 
 const App = () => (
-  <PageLayout>
-    <ViewController />
-  </PageLayout>
+  <ViewController />
 )
 
 ReactDOM.render(

@@ -47,7 +47,7 @@ export const { css, styled } = createStitches({
       's': '4px',
     },
     shadows: {
-      'basic': '0 2px 4px rgba(0, 0, 0, 0.5)',
+      'basic': '0 2px 4px rgba(0, 0, 0, 0.15)',
     },
     zIndices: {},
     transitions: {},

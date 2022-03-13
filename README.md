@@ -39,3 +39,12 @@ the default sort order of the issues)
 
 - [ ] the customized order should be able to be persisted in a current client-side
 session so that if you refresh the page, the order will remain (unnecessary to sync this customized order back to the api)
+
+## Tech
+
+- [React](https://reactjs.org/)
+- [SortableJS](https://github.com/SortableJS/react-sortablejs)
+- [Stitches](https://stitches.dev/) (styled components)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Vite](https://vitejs.dev/) (build tool and HMR)
+

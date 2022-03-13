@@ -11,13 +11,15 @@ export type OrgsOrgReposResponse = Endpoints['GET /orgs/{org}/repos']['response'
 export type UserReposResponse = Endpoints['GET /user/repos']['response']
 export type UsersUsernameReposResponse = Endpoints['GET /users/{username}/repos']['response']
 
+export type Data = OrgsOrgReposResponse['data'] | UserReposResponse['data'] | UsersUsernameReposResponse['data']
+
 type Inputs = {
   name: string
   queryType: 'organization' | 'personalAccessToken' | 'username'
 }
 
 type Props = {
-  setRepos: React.Dispatch<React.SetStateAction<OrgsOrgReposResponse['data'] | UserReposResponse['data'] | UsersUsernameReposResponse['data']>>
+  setRepos: React.Dispatch<React.SetStateAction<Data>>
 }
 
 const ErrorMessage = styled('p', {
