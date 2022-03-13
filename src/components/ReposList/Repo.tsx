@@ -6,8 +6,9 @@ type ArrayElement<ArrayType extends readonly unknown[]> =
   ArrayType extends readonly (infer ElementType)[] ? ElementType : never
 
 type Props = {
-  handleRepoOnClick: (owner: string, repo: string) => void
+  handleRepoOnClick: (owner: string, repo: string, id: number) => void
   repo: ArrayElement<Data>
+  selectedRepoId: number
 }
 
 const Item = styled('li', {
@@ -23,6 +24,14 @@ const Item = styled('li', {
   '&:hover': {
     backgroundColor: '$grey100',
   },
+
+  variants: {
+    selected: {
+      true: {
+        backgroundColor: '$grey300',
+      },
+    },
+  },
 })
 
 const RepoName = styled('span', {
@@ -36,9 +45,12 @@ const RepoDescription = styled('span', {
   lineHeight: '$body3',
 })
 
-const Repo = ({ handleRepoOnClick, repo }: Props) => {
+const Repo = ({ handleRepoOnClick, repo, selectedRepoId }: Props) => {
   return (
-    <Item onClick={() => handleRepoOnClick(repo.owner.login, repo.name)}>
+    <Item
+      onClick={() => handleRepoOnClick(repo.owner.login, repo.name, repo.id)}
+      selected={repo.id === selectedRepoId}
+    >
       <div>
         <RepoName>{repo.name}</RepoName><br />
         <RepoDescription>{repo.description}</RepoDescription>

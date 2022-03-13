@@ -17,7 +17,7 @@ type Props = {
 const Item = styled('li', {
   alignItems: 'center',
   borderBottom: '1px solid $grey300',
-  cursor: 'pointer',
+  cursor: 'grab',
   display: 'flex',
   fontSize: '$body2',
   justifyContent: 'space-between',
@@ -63,10 +63,12 @@ const Issue = ({ id, issue }: Props) => {
     transition,
   } = useSortable({ id })
 
-  const style = {
-    transform: CSS.Transform.toString(transform),
-    transition,
-  }
+  const style = useMemo(() => {
+    return {
+      transform: CSS.Transform.toString(transform),
+      transition,
+    }
+  }, [transform, transition])
 
   return (
     <Item

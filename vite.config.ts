@@ -9,7 +9,9 @@ export default defineConfig({
     alias: {
       'components': path.resolve(__dirname, './src/components'),
       'design-system': path.resolve(__dirname, './src/design-system'),
+      'hooks': path.resolve(__dirname, './src/hooks'),
       'node-fetch': 'isomorphic-fetch', // https://github.com/octokit/octokit.js/issues/2126
+      'utils': path.resolve(__dirname, './src/utils'),
     },
   },
 })

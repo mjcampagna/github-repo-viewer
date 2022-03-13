@@ -31,9 +31,9 @@ The app can be used without a personal access token, in which case, you can view
 
 - [x] each issue should display the following: assignee avatar (40x40), title, created time (format: dd/mm/yyyy), and last updated (example: 2 hours or 3 days ago)
 
-- [ ] a user should be able to reorder issues into whatever priority they wish (overriding the default sort order of the issues)
+- [x] a user should be able to reorder issues into whatever priority they wish (overriding the default sort order of the issues)
 
-- [ ] the customized order should be able to be persisted in a current client-side session so that if you refresh the page, the order will remain (unnecessary to sync this customized order back to the api)
+- [x] the customized order should be able to be persisted in a current client-side session so that if you refresh the page, the order will remain (unnecessary to sync this customized order back to the api)
 
 - [ ] include at least one Jest test
 
@@ -41,8 +41,35 @@ The app can be used without a personal access token, in which case, you can view
 
 ## Tech
 
+A non-exhaustive list.
+
 - [React](https://reactjs.org/)
 - [Stitches](https://stitches.dev/) (styled components)
 - [TypeScript](https://www.typescriptlang.org/)
 - [Vite](https://vitejs.dev/) (build tool and HMR)
 
+## Could-do
+
+Not a to-do list, because I am unlikely to take this further, but a "could-do" list, if I were to spend more time polishing this into shape for public release. Not an exhaustive list, of course, but these are probably the things I would focus on as next steps.
+
+### Better handling of error responses and edge cases
+
+For example, when selecting a repo with no issues, the app just doesn't do anything. Instead, we should message to the user that the repo contains no issues.
+
+### UX enhancements
+
+The two columns should scroll independently.
+
+Full application state could be made persistent so that refreshing the page would not return you to the lookup form.
+
+### Refactor / code cleanup
+
+Code could be reorganized and made more DRY. For example, I would probably want to consolidate my API calls into one file and import them into components for use, rather than inlining the data-fetching.
+
+I would probably also want to create an `useOctokit` hook and context provider, that would allow me to instantiate `const octokit = new Octokit()` just once at the top of the app, then access the `octokit` const via a hook in all the places I need it.
+
+Type declarations could also be better organized.
+
+### Flesh out the design system
+
+Declare more values and create more components within the design system, then convert various parts of the application to use these reusable items, as appropriate.

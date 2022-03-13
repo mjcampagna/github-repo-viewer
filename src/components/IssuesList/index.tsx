@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo } from 'react'
+import useLocalStorage from 'hooks/useLocalStorage'
 
 import {
   DndContext, 
@@ -22,10 +22,13 @@ import type { TransformedIssuesData } from './types'
 
 type Props = {
   issues: TransformedIssuesData
+  selectedRepoId: number
   setIssues: React.Dispatch<React.SetStateAction<TransformedIssuesData>>
 }
 
-const IssuesList = ({ issues, setIssues }: Props) => {
+const IssuesList = ({ issues, selectedRepoId, setIssues }: Props) => {
+  const [sequences, setSequences] = useLocalStorage('sequences', {})
+
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
@@ -42,7 +45,14 @@ const IssuesList = ({ issues, setIssues }: Props) => {
         const newIndex = items.findIndex((item) => item.id === over.id)
 
         const updatedItems = arrayMove(items, oldIndex, newIndex)
-        
+
+        // store custom sort in localStorage
+        const sortOrder = updatedItems.map((item) => item.id)
+        setSequences({
+          ...sequences,
+          [selectedRepoId]: sortOrder,
+        })
+
         return updatedItems
       })
     }

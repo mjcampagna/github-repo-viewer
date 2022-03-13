@@ -1,5 +1,7 @@
 import { useMemo, useState } from 'react'
 import { Octokit } from 'octokit'
+import useLocalStorage from 'hooks/useLocalStorage'
+import { compareSort } from 'utils/compareSort'
 
 import IssuesList from 'components/IssuesList'
 import Repo from './Repo'
@@ -65,6 +67,8 @@ const ReposList = ({ repos, setRepos }: Props) => {
     auth: import.meta.env.VITE_PERSONAL_ACCESS_TOKEN,
   }), [])
 
+  const [sequences, setSequences] = useLocalStorage('sequences', {})
+  const [selectedRepoId, setSelectedRepoId] = useState(-1)
   const [issues, setIssues] = useState<TransformedIssuesData>([])
 
   const handleClear = () => {
@@ -72,16 +76,18 @@ const ReposList = ({ repos, setRepos }: Props) => {
     setRepos([])
   }
 
-  const handleRepoOnClick = async (owner: string, repo: string) => {
+  const handleRepoOnClick = async (owner: string, repo: string, id: number) => {
     const response = await octokit.request('GET /repos/{owner}/{repo}/issues', {
       owner,
       repo,
     })
-    // transform type of id:number to id:string;
-    // necessary for "sortable" functionality
-    setIssues(response.data.map((item) => (
-      { ...item, id: `${item.id}` }
-    )))
+
+    setSelectedRepoId(id)
+
+    // sort issues
+    const sortedIssues = compareSort(response.data, sequences, id)
+    console.log('sortedIssues', sortedIssues)
+    setIssues(sortedIssues)
   }
 
   return (
@@ -99,13 +105,14 @@ const ReposList = ({ repos, setRepos }: Props) => {
                 handleRepoOnClick={handleRepoOnClick}
                 key={repo.id}
                 repo={repo}
+                selectedRepoId={selectedRepoId}
               />
             ))}
           </ul>
         </Column>
         {issues.length > 0 && (
           <Column>
-            <IssuesList issues={issues} setIssues={setIssues} />
+            <IssuesList issues={issues} selectedRepoId={selectedRepoId} setIssues={setIssues} />
           </Column>
         )}
       </Main>
