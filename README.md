@@ -42,7 +42,6 @@ The app can be used without a personal access token, in which case, you can view
 ## Tech
 
 - [React](https://reactjs.org/)
-- [SortableJS](https://github.com/SortableJS/react-sortablejs)
 - [Stitches](https://stitches.dev/) (styled components)
 - [TypeScript](https://www.typescriptlang.org/)
 - [Vite](https://vitejs.dev/) (build tool and HMR)

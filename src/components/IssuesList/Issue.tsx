@@ -1,4 +1,6 @@
 import { useMemo } from 'react'
+import {useSortable} from '@dnd-kit/sortable'
+import {CSS} from '@dnd-kit/utilities'
 
 import { format } from 'date-fns'
 import TimeAgo from 'timeago-react'
@@ -8,6 +10,7 @@ import { styled } from 'design-system'
 import type { IssueData } from './types'
 
 type Props = {
+  id: string
   issue: IssueData
 }
 
@@ -47,13 +50,32 @@ const IssueMetadata = styled('p', {
   lineHeight: '$body3',
 })
 
-const Issue = ({ issue }: Props) => {
+const Issue = ({ id, issue }: Props) => {
   const createdAt = useMemo(() => {
     return format(new Date(issue.created_at), 'dd/MM/yyyy')
   }, [issue])
 
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+  } = useSortable({ id })
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+  }
+
   return (
-    <Item key={issue.id}>
+    <Item
+      css={style}
+      key={issue.id}
+      ref={setNodeRef}
+      {...attributes}
+      {...listeners}
+    >
       {issue.assignee && (
         <AssigneeAvatar>
           <img

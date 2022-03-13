@@ -6,4 +6,9 @@ type ArrayElement<ArrayType extends readonly unknown[]> =
   ArrayType extends readonly (infer ElementType)[] ? ElementType : never
 
 export type IssuesData = ReposOwnerRepoIssuesResponse['data']
-export type IssueData = ArrayElement<IssuesData>
+
+export type IssueData = Omit<ArrayElement<IssuesData>, 'id'> & {
+  id: string
+}
+
+export type TransformedIssuesData = IssueData[]

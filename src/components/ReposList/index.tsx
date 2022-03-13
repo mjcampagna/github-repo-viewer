@@ -8,7 +8,7 @@ import { styled } from 'design-system'
 import { Button } from 'design-system'
 
 import type { Data } from 'components/RequestForm'
-import type { ReposOwnerRepoIssuesResponse } from 'components/IssuesList'
+import type { TransformedIssuesData } from 'components/IssuesList/types'
 
 type Props = {
   repos: Data
@@ -65,21 +65,30 @@ const ReposList = ({ repos, setRepos }: Props) => {
     auth: import.meta.env.VITE_PERSONAL_ACCESS_TOKEN,
   }), [])
 
-  const [issues, setIssues] = useState<ReposOwnerRepoIssuesResponse['data']>([])
+  const [issues, setIssues] = useState<TransformedIssuesData>([])
+
+  const handleClear = () => {
+    setIssues([])
+    setRepos([])
+  }
 
   const handleRepoOnClick = async (owner: string, repo: string) => {
     const response = await octokit.request('GET /repos/{owner}/{repo}/issues', {
       owner,
       repo,
     })
-    setIssues(response.data)
+    // transform type of id:number to id:string;
+    // necessary for "sortable" functionality
+    setIssues(response.data.map((item) => (
+      { ...item, id: `${item.id}` }
+    )))
   }
 
   return (
     <Container>
       <Header>
         <Owner>{repos[0].owner.login}</Owner>
-        <Button onClick={() => setRepos([])} type="button">Clear</Button>
+        <Button onClick={handleClear} type="button">Clear</Button>
       </Header>
 
       <Main>
@@ -96,7 +105,7 @@ const ReposList = ({ repos, setRepos }: Props) => {
         </Column>
         {issues.length > 0 && (
           <Column>
-            <IssuesList issues={issues} />
+            <IssuesList issues={issues} setIssues={setIssues} />
           </Column>
         )}
       </Main>
