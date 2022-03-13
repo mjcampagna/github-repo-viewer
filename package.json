@@ -10,13 +10,15 @@
   "dependencies": {
     "@octokit/core": "^3.5.1",
     "@stitches/react": "^1.2.7",
+    "date-fns": "^2.28.0",
     "isomorphic-fetch": "^3.0.0",
     "octokit": "^1.7.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-hook-form": "^7.27.1",
     "react-sortablejs": "^6.1.1",
-    "sortablejs": "^1.14.0"
+    "sortablejs": "^1.14.0",
+    "timeago-react": "^3.0.4"
   },
   "devDependencies": {
     "@octokit/types": "^6.34.0",

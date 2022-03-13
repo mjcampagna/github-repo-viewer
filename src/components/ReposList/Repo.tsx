@@ -6,7 +6,7 @@ type ArrayElement<ArrayType extends readonly unknown[]> =
   ArrayType extends readonly (infer ElementType)[] ? ElementType : never
 
 type Props = {
-  handleRepoOnClick: (id: number) => void
+  handleRepoOnClick: (owner: string, repo: string) => void
   repo: ArrayElement<Data>
 }
 
@@ -38,7 +38,7 @@ const RepoDescription = styled('span', {
 
 const Repo = ({ handleRepoOnClick, repo }: Props) => {
   return (
-    <Item onClick={() => handleRepoOnClick(repo.id)}>
+    <Item onClick={() => handleRepoOnClick(repo.owner.login, repo.name)}>
       <div>
         <RepoName>{repo.name}</RepoName><br />
         <RepoDescription>{repo.description}</RepoDescription>

@@ -29,7 +29,7 @@ The app can be used without a personal access token, in which case, you can view
 
 - [x] the loading of issues should change the interface from single column layout to a two-column interface, with repositories in the left column, and issues for the selected repository in the right column
 
-- [ ] each issue should display the following: assignee avatar (40x40), title, created time (format: dd/mm/yyyy), and last updated (example: 2 hours or 3 days ago)
+- [x] each issue should display the following: assignee avatar (40x40), title, created time (format: dd/mm/yyyy), and last updated (example: 2 hours or 3 days ago)
 
 - [ ] a user should be able to reorder issues into whatever priority they wish (overriding the default sort order of the issues)
 

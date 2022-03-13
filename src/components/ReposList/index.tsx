@@ -1,11 +1,14 @@
-import { useEffect } from 'react'
+import { useMemo, useState } from 'react'
+import { Octokit } from 'octokit'
 
+import IssuesList from 'components/IssuesList'
 import Repo from './Repo'
 
 import { styled } from 'design-system'
 import { Button } from 'design-system'
 
 import type { Data } from 'components/RequestForm'
+import type { ReposOwnerRepoIssuesResponse } from 'components/IssuesList'
 
 type Props = {
   repos: Data
@@ -14,13 +17,14 @@ type Props = {
 
 const Container = styled('div', {
   backgroundColor: '$white',
+  border: '0 solid $grey300',
+  borderWidth: '0 1px',
   boxShadow: '$basic',
   display: 'flex',
   margin: '0 auto',
   maxWidth: 1024,
   minHeight: '100vh',
   paddingTop: 72,
-  paddingBottom: 72,
   width: '100%',
 })
 
@@ -47,19 +51,28 @@ const Owner = styled('span', {
 const Main = styled('main', {
   display: 'flex',
   flex: '1 1 50%',
+  maxWidth: '100%',
 })
 
 const Column = styled('div', {
-  flex: '1 1 50%',
+  border: '1px solid $grey300',
+  flex: '1 1 auto',
+  minWidth: '50%',
 })
 
 const ReposList = ({ repos, setRepos }: Props) => {
-  useEffect(() => {
-    console.log(repos)
-  }, [repos])
+  const octokit = useMemo(() => new Octokit({
+    auth: import.meta.env.VITE_PERSONAL_ACCESS_TOKEN,
+  }), [])
 
-  const handleRepoOnClick = (id: number) => {
-    console.log(id)
+  const [issues, setIssues] = useState<ReposOwnerRepoIssuesResponse['data']>([])
+
+  const handleRepoOnClick = async (owner: string, repo: string) => {
+    const response = await octokit.request('GET /repos/{owner}/{repo}/issues', {
+      owner,
+      repo,
+    })
+    setIssues(response.data)
   }
 
   return (
@@ -81,6 +94,11 @@ const ReposList = ({ repos, setRepos }: Props) => {
             ))}
           </ul>
         </Column>
+        {issues.length > 0 && (
+          <Column>
+            <IssuesList issues={issues} />
+          </Column>
+        )}
       </Main>
     </Container>
   )
