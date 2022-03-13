@@ -25,20 +25,19 @@ The app can be used without a personal access token, in which case, you can view
 
 ## Acceptance Criteria
 
-- [ ] selecting a repository should load all of the repository's associated issues
+- [x] selecting a repository should load all of the repository's associated issues
 
-- [ ] the loading of issues should change the interface from single column layout to a
-two-column interface, with repositories in the left column, and issues for the selected
-repository in the right column
+- [x] the loading of issues should change the interface from single column layout to a two-column interface, with repositories in the left column, and issues for the selected repository in the right column
 
-- [ ] each issue should display the following: assignee avatar (40x40), title, created
-time (format: dd/mm/yyyy), and last updated (example: 2 hours or 3 days ago)
+- [ ] each issue should display the following: assignee avatar (40x40), title, created time (format: dd/mm/yyyy), and last updated (example: 2 hours or 3 days ago)
 
-- [ ] a user should be able to reorder issues into whatever priority they wish (overriding
-the default sort order of the issues)
+- [ ] a user should be able to reorder issues into whatever priority they wish (overriding the default sort order of the issues)
 
-- [ ] the customized order should be able to be persisted in a current client-side
-session so that if you refresh the page, the order will remain (unnecessary to sync this customized order back to the api)
+- [ ] the customized order should be able to be persisted in a current client-side session so that if you refresh the page, the order will remain (unnecessary to sync this customized order back to the api)
+
+- [ ] include at least one Jest test
+
+- [ ] app is responsive; include at least one layout change at a breakpoint
 
 ## Tech
 
