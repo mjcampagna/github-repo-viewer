@@ -2,6 +2,10 @@
 
 A simple application that interfaces with Github, and allows for prioritization of issues for a chosen repository.
 
+## Demo
+
+https://user-images.githubusercontent.com/1414181/158086374-cdc973b4-c421-4269-bc3c-8977d623211b.mov
+
 ## Setup
 
 Clone the repo, then:
