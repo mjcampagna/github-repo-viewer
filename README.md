@@ -35,7 +35,7 @@ The app can be used without a personal access token, in which case, you can view
 
 - [x] the customized order should be able to be persisted in a current client-side session so that if you refresh the page, the order will remain (unnecessary to sync this customized order back to the api)
 
-- [ ] include at least one Jest test
+- [x] include at least one Jest test
 
 - [x] app is responsive; include at least one layout change at a breakpoint
 
@@ -73,3 +73,7 @@ Type declarations could also be better organized.
 ### Flesh out the design system
 
 Declare more values and create more components within the design system, then convert various parts of the application to use these reusable items, as appropriate.
+
+## Notes
+
+If I were to start this over again, I would do well to use Create React App instead of Vite. Ultimately, Vite caused me to spend far too much time chasing down config options, particularly while trying to set up Jest, due to Vite leaning hard into ESM, while Jest leans into CommonJS. So much for shiny, new things.
